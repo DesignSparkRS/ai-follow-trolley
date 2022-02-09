@@ -119,7 +119,48 @@ class MOT:
         self.frame_count += 1
 
     def _draw(self, frame, detections):
+        '''
+        tracks = self.visible_tracks
+        fw = frame.shape[1]
+        fwh = int(fw/2)
+        fh = frame.shape[0]
+        fhh = int(fh/2)
+        cv2.drawMarker(frame, (fwh, fhh), color=(0, 0, 255), markerType=cv2.MARKER_CROSS, thickness=2)
+        cv2.line(frame, (fwh-self.centreLimits, 0), (fwh-self.centreLimits, fh), color=(0, 0, 255), thickness=2)
+        cv2.line(frame, (fwh+self.centreLimits, 0), (fwh+self.centreLimits, fh), color=(0, 0, 255), thickness=2)
+        for track in tracks:
+            tl, br = tuple(track.tlbr[:2]), tuple(track.tlbr[2:])
+            tx = tl[0]
+            ty = tl[1]
+            bx = br[0]
+            by = br[1]
+            mx = int(((bx - tx) / 2) + tx)
+            my = int(((by - ty) / 2) + ty)
+            print("ID: {}, middleX: {}, middleY: {}, motorStatus: {}".format(track.trk_id, mx, my, self.motorStatus))
+            cv2.drawMarker(frame, (mx, my), color=(0, 255, 0), markerType=cv2.MARKER_CROSS, thickness=2)
+
+            if mx > fwh+self.centreLimits and self.motorStatus == 0:
+                print("Right")
+                self.motorStatus = 1
+                self.t.turnRight(dutyCycle=4)
+
+            if mx < fwh-self.centreLimits and self.motorStatus == 0:
+                print("Left")
+                self.motorStatus = -1
+                self.t.turnLeft(dutyCycle=5)
+
+            if mx < fwh+(self.centreLimits/2) and self.motorStatus == 1:
+                print("Stop after right")
+                self.motorStatus = 0
+                self.t.stop()
+
+            if mx > fwh-(self.centreLimits/2) and self.motorStatus == -1:
+                print("Stop after left")
+                self.motorStatus = 0
+                self.t.stop()
+
         draw_tracks(frame, self.visible_tracks, show_flow=self.verbose)
+        '''
         if self.verbose:
             draw_detections(frame, detections)
             draw_flow_bboxes(frame, self.tracker)

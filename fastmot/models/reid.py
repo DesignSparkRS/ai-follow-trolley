@@ -18,7 +18,7 @@ class ReID:
         with trt.Builder(trt_logger) as builder, builder.create_network(EXPLICIT_BATCH) as network, \
             trt.OnnxParser(network, trt_logger) as parser:
 
-            builder.max_workspace_size = 1 << 30
+            builder.max_workspace_size = 1 << 28
             builder.max_batch_size = batch_size
             LOGGER.info('Building engine with batch size: %d', batch_size)
             LOGGER.info('This may take a while...')

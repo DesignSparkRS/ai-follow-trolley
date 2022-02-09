@@ -173,6 +173,7 @@ class VideoIO:
             if 'nvarguscamerasrc' in gst_elements:
                 pipeline = (
                     'nvarguscamerasrc sensor_id=%s ! '
+                    'nvvidconv flip-method=2 ! '
                     'video/x-raw(memory:NVMM), width=%d, height=%d, '
                     'format=NV12, framerate=%d/1 ! '
                     % (

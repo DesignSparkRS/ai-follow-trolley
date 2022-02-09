@@ -2,7 +2,7 @@
     "resize_to": [1280, 720],
 
     "video_io": {
-        "resolution": [1920, 1080],
+        "resolution": [1280, 720],
         "frame_rate": 30,
         "buffer_size": 10
     },
