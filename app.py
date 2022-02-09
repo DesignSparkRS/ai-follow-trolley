@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+'''
+MIT License
+2021 GeekAlexis, 2022 RS Components Ltd
+'''
+
 from pathlib import Path
 import argparse
 import logging
